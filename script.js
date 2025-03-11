@@ -14,20 +14,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.key === 'Enter') addTask();
     });
 
-    // Function to add a new task
+    // Add a new task
     function addTask() {
         const taskText = addTaskInput.value.trim(); // Remove unnecessary spaces
         if (!taskText) return; // Prevent empty tasks
 
         const tasks = getTasksFromStorage();
         tasks.push({ text: taskText, completed: false }); // Add new task object
-        saveTasksToStorage(tasks); // Save updated tasks list
+        saveTasksToStorage(tasks); // Saves update
 
         addTaskInput.value = ''; // Clear input field
-        renderTasks(); // Update the task list on UI
+        renderTasks();
     }
 
-    // Function to display tasks from localStorage
+    // Display tasks from localStorage
     function renderTasks() {
         const tasks = getTasksFromStorage();
         taskList.innerHTML = ''; // Clear existing task list
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const li = document.createElement('li');
             li.className = task.completed ? 'completed' : ''; // Add class if task is completed
             
-            // Task structure with checkbox and delete button
+            // Checkbox and delete button
             li.innerHTML = `
                 <input type="checkbox" ${task.completed ? 'checked' : ''} data-index="${index}">
                 <span class="task-text">${task.text}</span>
@@ -55,13 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
         let tasks = getTasksFromStorage();
 
         if (event.target.matches('input[type="checkbox"]')) {
-            tasks[index].completed = !tasks[index].completed; // Toggle completion status
+            tasks[index].completed = !tasks[index].completed; // Completion status
         } else if (event.target.matches('.delete')) {
             tasks.splice(index, 1); // Remove task from array
         }
 
         saveTasksToStorage(tasks); // Save updated list to localStorage
-        renderTasks(); // Refresh UI
+        renderTasks(); 
     });
 
     // Retrieve tasks from localStorage
