@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const addTask = document.getElementById('addTask');
+    const addTaskInput = document.getElementById('addTask');
     const addTaskButton = document.getElementById('addTaskButton');
     const taskList = document.getElementById('taskList');
 
@@ -7,23 +7,23 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTasks();
 
     // Add task when button is clicked
-    addTaskButton.addEventListener('click', () => addTask());
+    addTaskButton.addEventListener('click', addTask);
 
     // Allow adding a task by pressing "Enter" key
-    addTask.addEventListener('keydown', (event) => {
+    addTaskInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') addTask();
     });
 
     // Function to add a new task
     function addTask() {
-        const taskText = addTask.value.trim(); // Remove unnecessary spaces
+        const taskText = addTaskInput.value.trim(); // Remove unnecessary spaces
         if (!taskText) return; // Prevent empty tasks
 
         const tasks = getTasksFromStorage();
         tasks.push({ text: taskText, completed: false }); // Add new task object
         saveTasksToStorage(tasks); // Save updated tasks list
 
-        addTask.value = ''; // Clear input field
+        addTaskInput.value = ''; // Clear input field
         renderTasks(); // Update the task list on UI
     }
 
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let tasks = getTasksFromStorage();
 
         if (event.target.matches('input[type="checkbox"]')) {
-            tasks[index].completed = !tasks[index].completed; // completion status
+            tasks[index].completed = !tasks[index].completed; // Toggle completion status
         } else if (event.target.matches('.delete')) {
             tasks.splice(index, 1); // Remove task from array
         }
